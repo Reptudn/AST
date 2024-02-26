@@ -10,11 +10,14 @@ class Node:
 def shunting_yard(tokens):
     output = []
     operators = []
+    precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
+
     for token in tokens:
         if token in '1234567890':
             output.append(token)
         elif token in '+-*/':
-            while operators and operators[-1] in '+-*/':
+            while (operators and operators[-1] in '+-*/' and
+                   precedence[token] <= precedence[operators[-1]]):
                 output.append(operators.pop())
             operators.append(token)
         elif token == '(':

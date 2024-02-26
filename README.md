@@ -1,1 +1,1 @@
-dynamic syntax tree aka dst
+abstract syntax tree aka ast

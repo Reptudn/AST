@@ -4,6 +4,9 @@ class Node:
         self.left = None
         self.right = None
 
+# Shunting yard algorithm
+# in: ['1', '+', '2', '*', '4']
+# out: ['1', '2', '+', '4', '*']
 def shunting_yard(tokens):
     output = []
     operators = []
@@ -24,6 +27,9 @@ def shunting_yard(tokens):
         output.append(operators.pop())
     return output
 
+# Build the AST from the postfix tokens
+# in: ['1', '2', '+', '4', '*']
+# out: Node('*')
 def build_ast(postfix_tokens):
     stack = []
     for token in postfix_tokens:
@@ -36,6 +42,9 @@ def build_ast(postfix_tokens):
             stack.append(node)
     return stack[0] if stack else None
 
+# Tokenize the input string
+# in: 1 + 2 * 4
+# out: ['1', '+', '2', '*', '4']
 def tokenize(line: str):
     tokens = []
     number = ''
@@ -58,6 +67,7 @@ def tokenize(line: str):
         tokens.append(number)
     return tokens
 
+# actual recursive calucaltion
 def calculate(node):
     if node.value in '1234567890':
         return int(node.value)
@@ -81,9 +91,9 @@ def main():
         tokens = tokenize(line)
         if tokens == None:
             continue
-        print(tokens)
+        print("Tokens: ", str(tokens))
         output = shunting_yard(tokens)
-        print(output)
+        print("Postfix: " + str(output))
         ast = build_ast(output)
         if ast is None:
             print("ast err")
